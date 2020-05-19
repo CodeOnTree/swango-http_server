@@ -288,8 +288,6 @@ class HttpServer {
                 $cnmsg
             ] = HttpServer\Handler::start($request, $response);
             $user_id = HttpServer\Authorization::getUidWithRole();
-
-            HttpServer\Handler::end($request);
         } catch(\Swoole\ExitException $e) {
             trigger_error("Unexpected exit:{$e->getCode()} {$e->getMessage()}");
         } catch(\Throwable $e) {
