@@ -267,7 +267,7 @@ class Handler {
             $request->post = $data->data;
 
             if ($controller::USE_SESSION && ! $controller::START_SESSION_LATER && property_exists($data, 'sid')) {
-                \session::start($request, $response, $sid, $data->ua ?? 'wmp');
+                \session::start($request, $response, $sid);
                 return true;
             } else
                 return false;
