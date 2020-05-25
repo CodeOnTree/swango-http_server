@@ -320,10 +320,7 @@ class TerminalServer {
     }
     public function notifyLogQueue(bool $force = false) {
         if ($force || $this->notify_log_queue_atomic->get() === 0 && $this->notify_log_queue_atomic->add() === 1) {
-            $redis = \Swango\Cache\RedisPool::pop();
-            $redis->select(1);
-            $redis->lPush(self::$log_queue_redis_key, \Swango\Environment::getServiceConfig()->local_ip);
-            \Swango\Cache\RedisPool::push($redis);
+            \cache::lPush(self::$log_queue_redis_key, \Swango\Environment::getServiceConfig()->local_ip);
         }
     }
 }

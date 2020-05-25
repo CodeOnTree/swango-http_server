@@ -230,7 +230,6 @@ class Handler {
                 $key = 'rand_lock_' . $unique_request_id;
                 \SysContext::set('unique_request_id', $unique_request_id);
                 if (\cache::exists($key)) {
-                    \cache::select(2);
                     try {
                         $response_string_arr = \cache::blPop($unique_request_id, 1);
 
@@ -243,10 +242,8 @@ class Handler {
                         } else
                             $response_string = null;
                     } catch(\Swango\Cache\RedisErrorException $e) {
-                        \cache::select(1);
                         throw $e;
                     }
-                    \cache::select(1);
                     if (isset($response_string) && is_string($response_string)) {
                         $response->header('Access-Control-Allow-Headers',
                             'Rsa-Certificate-Id, Mango-Rsa-Cert, Mango-Request-Rand, Content-Type');

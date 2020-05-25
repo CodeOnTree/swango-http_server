@@ -227,7 +227,6 @@ abstract class Controller {
             if (isset($unique_request_id)) {
                 if (self::$cache_response_func === null)
                     self::$cache_response_func = function ($unique_request_id, $echo) {
-                        \cache::select(2);
                         \cache::rPush($unique_request_id, $echo);
                         \cache::setTimeout($unique_request_id, 300);
                     };
